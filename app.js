@@ -8,12 +8,22 @@ app.get('/ping', (request, response) => {
     response.send("Ping");
 })
 
-app.get('/files/' + fileName, (request, response, next) => {
+app.get('/files/' + fileName, (request, response) => {
     var path = __dirname + '/files/' + fileName;
-    console.log(path);
-    response.download(path);
-    return;
-})
+
+    console.log('downloading file: ' + fileName);
+    response.download(path, fileName, (error) => {
+        if(!error) return;
+        if(error.status !== 404){
+            response.statusCode = 500;
+            response.end("Error downloading file");
+        }
+        else{
+            response.statusCode = 404;
+            response.end(`File ${fileName} not found`);
+        }
+    });
+});
 
 app.get('/generate', (request, response) => {
     
