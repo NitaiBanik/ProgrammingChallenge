@@ -1,8 +1,12 @@
-var http = require('http');
+const  http = require('http');
+const url = require('url');
 
-var dateTime = require('./datetimemodule');
+const port = 6030;
 
 http.createServer((request, response) => {
-    response.writeHead(200, {'Content-Type': 'application/json'});
-    response.write("The time is now is: " + dateTime.myDateTime());
-}).listen(6030);
+    response.writeHead(200, {'Content-Type': 'text/html'});
+    var params = url.parse(request.url, true).query;
+    response.end(params.day + " " + params.month);
+}).listen(port, () =>{
+    console.log(`Server started on port: ${port}`);
+});
