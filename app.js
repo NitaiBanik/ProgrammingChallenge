@@ -4,10 +4,15 @@ const app = express();
 const port = 6030;
 const fileName = "objects.txt";
 
-app.use('/files/download', express.static('files'));
-
 app.get('/ping', (request, response) => {
     response.send("Ping");
+})
+
+app.get('/files/' + fileName, (request, response, next) => {
+    var path = __dirname + '/files/' + fileName;
+    console.log(path);
+    response.download(path);
+    return;
 })
 
 app.get('/generate', (request, response) => {
@@ -16,7 +21,7 @@ app.get('/generate', (request, response) => {
 
     var host = request.get('host');
     response.writeHead(200, {'Content-Type': 'text/json'});
-    response.end(JSON.stringify({downloadUrl: host + "/files/download/" +  fileName}));
+    response.end(JSON.stringify({downloadUrl: host + "/files/" +  fileName}));
 })
 
 app.listen(port, () => {
