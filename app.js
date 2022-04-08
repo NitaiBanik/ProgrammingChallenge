@@ -1,3 +1,5 @@
+var generator= require('./generateobjects');
+
 const express = require('express');
 const app = express();
 
@@ -27,7 +29,7 @@ app.get('/files/' + fileName, (request, response) => {
 
 app.get('/generate', (request, response) => {
     
-    generateObjects();
+    generator.generate(fileName);
 
     var host = request.get('host');
     response.writeHead(200, {'Content-Type': 'text/json'});
@@ -37,7 +39,3 @@ app.get('/generate', (request, response) => {
 app.listen(port, () => {
     console.log(`Server is listening on port ${port}`);
 });
-
-function generateObjects(){
-    console.log("Generating objects");
-}
