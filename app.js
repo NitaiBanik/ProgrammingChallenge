@@ -9,7 +9,7 @@ const fileName = "objects.txt";
 const reportFileName = "report.json";
 
 app.get('/ping', (request, response) => {
-    response.end("Ping");
+    response.end("Pong");
 })
 
 app.get('/generate', (request, response) => {
