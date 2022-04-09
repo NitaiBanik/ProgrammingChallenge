@@ -2,6 +2,7 @@ var fs = require('fs');
 
 var min_length = 4;
 var max_length = 16;
+var totalBytes = 2*1000*1000; 
 
 const alphabets ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
 const alphanumerics ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -12,15 +13,16 @@ function generate(fileName, report){
 
     var path = __dirname + '/files/' + fileName;
     console.log(`Generating objects another file ${path}, ${JSON.stringify(report)}`);
+    
     resetPreviouslyGeneratedObjects(path);
 
-    var totalBytes = 2*100*100;
-
-    while(totalBytes > min_length){
+    while(totalBytes >= min_length){
         var length_of_object = generate_length_of_object();
-        var object = generate_single_object(length_of_object);
+        var length = Math.min(length_of_object, totalBytes);
 
-        totalBytes -= length_of_object;
+        var object = generate_single_object(length);
+
+        totalBytes -= length;
 
         console.log(size);
         console.log(object);
