@@ -18,8 +18,7 @@ app.get('/generate', (request, response) => {
     generator.generate(fileName, reportFileName, report);
 
     let host = request.get('host');
-    response.writeHead(200, {'Content-Type': 'text/json'});
-    response.end(JSON.stringify({downloadUrl: host + "/files/" +  fileName}));
+    response.end(JSON.stringify({ downloadUrl: host + "/files/" + fileName }));
 })
 
 
@@ -28,12 +27,12 @@ app.get('/files/' + fileName, (request, response) => {
 
     console.log('downloading file: ' + fileName);
     response.download(path, fileName, (error) => {
-        if(!error) return;
-        if(error.status !== 404){
+        if (!error) return;
+        if (error.status !== 404) {
             response.statusCode = 500;
             response.end("Error downloading file!");
         }
-        else{
+        else {
             response.statusCode = 404;
             response.end(`File ${fileName} not found`);
         }
@@ -42,17 +41,17 @@ app.get('/files/' + fileName, (request, response) => {
 
 app.get('/report', (request, response) => {
     let path = __dirname + '/files/' + reportFileName;
-    
-    fs.readFile(path, (error, result) =>{
-        if(!error){
+
+    fs.readFile(path, (error, result) => {
+        if (!error) {
             let reportData = JSON.parse(result);
             response.end(JSON.stringify(reportData));
         }
-        else if(error.status !== 404){
+        else if (error.status !== 404) {
             response.statusCode = 500;
             response.end("Error getting report");
         }
-        else{
+        else {
             response.statusCode = 404;
             response.end(`Report not found`);
         }

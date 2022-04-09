@@ -1,44 +1,44 @@
-function detect(report, object){
+function detect(report, object) {
 
     let total_alphabets = 0;
     let total_numbers = 0;
     let total_dots = 0;
 
-    for(var i = 0; i < object.length; i++){
+    for (var i = 0; i < object.length; i++) {
 
-        if(isNumber(object[i]))
+        if (isNumber(object[i]))
             total_numbers++;
-        else if(isAlpha(object[i]))
+        else if (isAlpha(object[i]))
             total_alphabets++;
-        else if(isDot(object[i]))
+        else if (isDot(object[i]))
             total_dots++;
-        else 
+        else
             console.error(`Invalid character: ${chr}`);
     }
 
-    if(total_alphabets == object.length)
+    if (total_alphabets == object.length)
         report.Alphabetical_Strings++;
-    else if(total_numbers == object.length)
+    else if (total_numbers == object.length)
         report.Integers++;
-    else if(total_dots == 1 && total_numbers == object.length - 1)
+    else if (total_dots == 1 && total_numbers == object.length - 1)
         report.Real_Numbers++;
-    else if((total_alphabets + total_numbers) == object.length)
+    else if ((total_alphabets + total_numbers) == object.length)
         report.Alphanumerics++;
     else
         console.error(`Invalid object: ${object}`);
     return report;
 }
 
-function isNumber(chr){
+function isNumber(chr) {
     return chr >= '0' && chr <= '9';
 }
 
-function isAlpha(chr){
+function isAlpha(chr) {
     return (chr >= 'A' && chr <= 'Z') || (chr >= 'a' && chr <= 'z');
 }
 
-function isDot(chr){
+function isDot(chr) {
     return chr == '.';
 }
 
-module.exports = {detect};
+module.exports = { detect };
