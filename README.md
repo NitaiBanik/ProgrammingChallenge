@@ -3,11 +3,13 @@
 
 ### How to run the project:
 
-**1.** Clone the repository from **GitHub**.
+**1.** Install `Node.Js` if not installed in your computer from this url: .https://nodejs.org/
 
-**2.** Browse to project root folder and run the command `npm init` in command terminal.
+**2.** Clone this repository from **GitHub**.
 
-**3.** run command `node app.js`.
+**3.** Goto project root folder and run the command `npm init` in command terminal.
+
+**4.** run command `node app.js`.
 
 ```Server is listening on port 6030``` message will be shown in terminal.
 
@@ -35,11 +37,11 @@
     response:
     
      ```json
-     {
-    "Alphabetical_Strings":60900,
-    "Real_Numbers":50043,
-    "Integers":49903,
-    "Alphanumerics":39308
+    {
+        "Alphabetical_Strings":60900,
+        "Real_Numbers":50043,
+        "Integers":49903,
+        "Alphanumerics":39308
     }
     ```
     Counts will be different according to random object generation.
