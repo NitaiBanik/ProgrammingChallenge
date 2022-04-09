@@ -1,4 +1,5 @@
 var fs = require('fs');
+
 var min_length = 4;
 var max_length = 16;
 
@@ -13,15 +14,15 @@ function generate(fileName, report){
     console.log(`Generating objects another file ${path}, ${JSON.stringify(report)}`);
     resetPreviouslyGeneratedObjects(path);
 
-    var x = 10;
+    var x = 100;
     while(x--){
-        var object = generate_single_object();
+        var length_of_object = generate_length_of_object();
+        var object = generate_single_object(length_of_object);
+
         console.log(object);
     }
 
 }
-
-module.exports = {generate};
 
 function resetPreviouslyGeneratedObjects(path) {
     fs.writeFile(path, "", (error) => {
@@ -30,78 +31,69 @@ function resetPreviouslyGeneratedObjects(path) {
     });
 }
 
-function generate_single_object(){
-   var object = "";
-   var length =  generate_length_of_object();
-   
-   for(var i = 0 ; i < length; i++){
-        object += characters.charAt(Math.floor(Math.random() * characters.length));
-   }
-   
-   return object;
+function generate_single_object(length){
+    var object_type =  Math.floor(Math.random() * 4);
+
+    if(object_type == 0)
+        return generate_alphabetical_string(length);
+    
+    if(object_type == 1)
+        return generate_alphanumerics(length);
+    
+    if(object_type == 2)
+        return generate_integers(length);
+
+    if(object_type == 3)
+        return generate_real_numbers(length);
+
+    throw console.error("Invalid object type");
 }
 
 function generate_length_of_object() {
     var random_number = Math.random();
     var length = random_number * (max_length - min_length + 1) + min_length;
+
     return Math.floor(length);
 }
 
-function generate_integers(){
+function generate_integers(length){
     var object = "";
-    var length =  generate_length_of_object();
     
-    for(var i = 0 ; i < length; i++){
+    for(var i = 0 ; i < length; i++)
          object += integers.charAt(Math.floor(Math.random() * integers.length));
-    }
-    
+
     return object;
  }
 
- function generate_integers(){
+ function generate_alphabetical_string(length){
     var object = "";
-    var length =  generate_length_of_object();
     
-    for(var i = 0 ; i < length; i++){
-         object += integers.charAt(Math.floor(Math.random() * integers.length));
-    }
-    
-    return object;
- }
-
- function generate_alphabetical_string(){
-    var object = "";
-    var length =  generate_length_of_object();
-    
-    for(var i = 0 ; i < length; i++){
+    for(var i = 0 ; i < length; i++)
          object += alphabets.charAt(Math.floor(Math.random() * alphabets.length));
-    }
     
     return object;
  }
 
- function generate_alphanumerics(){
+ function generate_alphanumerics(length){
     var object = "";
-    var length =  generate_length_of_object();
     
-    for(var i = 0 ; i < length; i++){
+    for(var i = 0 ; i < length; i++)
          object += alphanumerics.charAt(Math.floor(Math.random() * alphanumerics.length));
-    }
     
     return object;
  }
 
- function generate_real_numbers(){
+ function generate_real_numbers(length){
     var object = "";
-    var length =  generate_length_of_object();
-    
+    var position_to_put_dot = Math.floor(Math.random() * (length - 2)) + 1;
+
     for(var i = 0 ; i < length; i++){
-         object += integers.charAt(Math.floor(Math.random() * integers.length));
+        if(i == position_to_put_dot)
+            object += '.';
+        else
+            object += integers.charAt(Math.floor(Math.random() * integers.length));
     }
-
-    var position_to_put_dot = Math.floor(Math.random() * (length - 2));
-
-    object[position_to_put_dot] = '.';
-    
     return object;
  }
+
+ module.exports = {generate};
