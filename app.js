@@ -12,6 +12,17 @@ app.get('/ping', (request, response) => {
     response.end("Ping");
 })
 
+app.get('/generate', (request, response) => {
+
+    var report = resetReport();
+    generator.generate(fileName, report);
+
+    var host = request.get('host');
+    response.writeHead(200, {'Content-Type': 'text/json'});
+    response.end(JSON.stringify({downloadUrl: host + "/files/" +  fileName}));
+})
+
+
 app.get('/files/' + fileName, (request, response) => {
     var path = __dirname + '/files/' + fileName;
 
@@ -27,20 +38,6 @@ app.get('/files/' + fileName, (request, response) => {
             response.end(`File ${fileName} not found`);
         }
     });
-});
-
-app.get('/generate', (request, response) => {
-
-    var report = resetReport();
-    generator.generate(fileName, report);
-
-    var host = request.get('host');
-    response.writeHead(200, {'Content-Type': 'text/json'});
-    response.end(JSON.stringify({downloadUrl: host + "/files/" +  fileName}));
-})
-
-app.listen(port, () => {
-    console.log(`Server is listening on port ${port}`);
 });
 
 app.get('/report', (request, response) => {
@@ -60,6 +57,10 @@ app.get('/report', (request, response) => {
             response.end(`Report not found`);
         }
     });
+});
+
+app.listen(port, () => {
+    console.log(`Server is listening on port ${port}`);
 });
 
 function resetReport() {
