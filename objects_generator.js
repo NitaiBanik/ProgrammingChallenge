@@ -4,7 +4,6 @@ var detector= require('./object_type_detector');
 
 var min_length = 4;
 var max_length = 16;
-var totalBytes = 2*1000*1000; 
 
 const alphabets ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
 const alphanumerics ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -19,6 +18,8 @@ function generate(fileName, reportFileName, report){
     console.log(`Generating objects another file ${path}, ${JSON.stringify(report)}`);
     
     var total_objects = "";
+
+    var totalBytes = 2*1000*1000; 
 
     while(totalBytes >= min_length){
         var length_of_object = generate_length_of_object();
