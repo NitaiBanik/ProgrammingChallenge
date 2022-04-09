@@ -15,7 +15,7 @@ app.get('/ping', (request, response) => {
 app.get('/generate', (request, response) => {
 
     var report = resetReport();
-    generator.generate(fileName, report);
+    generator.generate(fileName, reportFileName, report);
 
     var host = request.get('host');
     response.writeHead(200, {'Content-Type': 'text/json'});
@@ -81,3 +81,4 @@ function resetReport() {
 
     return report;
 }
+

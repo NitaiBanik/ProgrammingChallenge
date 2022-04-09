@@ -1,5 +1,7 @@
 var fs = require('fs');
 
+var detector= require('./object_type_detector');
+
 var min_length = 4;
 var max_length = 16;
 var totalBytes = 2*1000*1000; 
@@ -9,7 +11,7 @@ const alphanumerics ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz012345
 const integers ='0123456789';
 
 
-function generate(fileName, report){
+function generate(fileName, reportFileName, report){
 
     var path = __dirname + '/files/' + fileName;
     resetPreviouslyGeneratedObjects(path);
@@ -24,6 +26,8 @@ function generate(fileName, report){
 
         var object = generate_single_object(length);
 
+        report = detector.detect(report, object);
+
         total_objects += (object + ", ");
         totalBytes -= length;
     }
@@ -33,6 +37,14 @@ function generate(fileName, report){
         if (err) throw err;
         console.log('Objects Generated Successfully!');
       });
+
+      var reportFilePath = __dirname + '/files/' + reportFileName;
+  
+      fs.writeFile(reportFilePath, JSON.stringify(report), (err) => {
+          if (err)
+              throw err;
+          console.log('Report file has been updated!');
+      }); 
 }
 
 function resetPreviouslyGeneratedObjects(path) {
@@ -108,3 +120,4 @@ function generate_integers(length){
  }
 
  module.exports = {generate};
+ 

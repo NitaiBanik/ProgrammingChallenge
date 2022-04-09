@@ -40,5 +40,4 @@ function isDot(chr){
     return chr == '.';
 }
 
-
-module.exports = {object_type_detector};
+module.exports = {detect};
