@@ -1,13 +1,15 @@
 var generator= require('./generateobjects');
+var fs = require('fs');
 
 const express = require('express');
 const app = express();
 
 const port = 6030;
 const fileName = "objects.txt";
+const reportFileName = "report.json";
 
 app.get('/ping', (request, response) => {
-    response.send("Ping");
+    response.end("Ping");
 })
 
 app.get('/files/' + fileName, (request, response) => {
@@ -38,4 +40,23 @@ app.get('/generate', (request, response) => {
 
 app.listen(port, () => {
     console.log(`Server is listening on port ${port}`);
+});
+
+app.get('/report', (request, response) => {
+    var path = __dirname + '/files/' + reportFileName;
+    
+    fs.readFile(path, (error, result) =>{
+        if(!error){
+            var reportData = JSON.parse(result);
+            response.end(JSON.stringify(reportData));
+        }
+        else if(error.status !== 404){
+            response.statusCode = 500;
+            response.end("Error getting report");
+        }
+        else{
+            response.statusCode = 404;
+            response.end(`Report not found`);
+        }
+    });
 });
