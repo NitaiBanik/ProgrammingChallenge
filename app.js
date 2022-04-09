@@ -1,4 +1,4 @@
-var generator= require('./generateobjects');
+var generator= require('./generate_objects');
 var fs = require('fs');
 
 const express = require('express');
@@ -30,8 +30,9 @@ app.get('/files/' + fileName, (request, response) => {
 });
 
 app.get('/generate', (request, response) => {
-    
-    generator.generate(fileName);
+
+    var report = resetReport();
+    generator.generate(fileName, report);
 
     var host = request.get('host');
     response.writeHead(200, {'Content-Type': 'text/json'});
@@ -60,3 +61,22 @@ app.get('/report', (request, response) => {
         }
     });
 });
+
+function resetReport() {
+    var path = __dirname + '/files/' + reportFileName;
+
+    var report = {
+        "Alphabetical_Strings": 0,
+        "Real_Numbers": 0,
+        "Integers": 0,
+        "Alphanumerics": 0
+    };
+
+    fs.writeFile(path, JSON.stringify(report), (err) => {
+        if (err)
+            throw err;
+        console.log('Report file has been reset!');
+    });
+
+    return report;
+}
