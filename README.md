@@ -46,7 +46,7 @@
     "Alphanumerics":39308
     }
     ```
-    count will be different according to random generation.
+    Counts will be different according to random object generation.
 
 
 
