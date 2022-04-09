@@ -1,6 +1,3 @@
-var generator= require('./objects_generator');
-var fs = require('fs');
-
 const express = require('express');
 const app = express();
 
@@ -8,30 +5,33 @@ const port = 6030;
 const fileName = "objects.txt";
 const reportFileName = "report.json";
 
+const generator = require('./objects_generator');
+const fs = require('fs');
+
 app.get('/ping', (request, response) => {
     response.end("Pong");
 })
 
 app.get('/generate', (request, response) => {
 
-    var report = resetReport();
+    let report = resetReport();
     generator.generate(fileName, reportFileName, report);
 
-    var host = request.get('host');
+    let host = request.get('host');
     response.writeHead(200, {'Content-Type': 'text/json'});
     response.end(JSON.stringify({downloadUrl: host + "/files/" +  fileName}));
 })
 
 
 app.get('/files/' + fileName, (request, response) => {
-    var path = __dirname + '/files/' + fileName;
+    let path = __dirname + '/files/' + fileName;
 
     console.log('downloading file: ' + fileName);
     response.download(path, fileName, (error) => {
         if(!error) return;
         if(error.status !== 404){
             response.statusCode = 500;
-            response.end("Error downloading file");
+            response.end("Error downloading file!");
         }
         else{
             response.statusCode = 404;
@@ -41,11 +41,11 @@ app.get('/files/' + fileName, (request, response) => {
 });
 
 app.get('/report', (request, response) => {
-    var path = __dirname + '/files/' + reportFileName;
+    let path = __dirname + '/files/' + reportFileName;
     
     fs.readFile(path, (error, result) =>{
         if(!error){
-            var reportData = JSON.parse(result);
+            let reportData = JSON.parse(result);
             response.end(JSON.stringify(reportData));
         }
         else if(error.status !== 404){
@@ -66,9 +66,9 @@ app.listen(port, () => {
 });
 
 function resetReport() {
-    var path = __dirname + '/files/' + reportFileName;
+    let path = __dirname + '/files/' + reportFileName;
 
-    var report = {
+    let report = {
         "Alphabetical_Strings": 0,
         "Real_Numbers": 0,
         "Integers": 0,

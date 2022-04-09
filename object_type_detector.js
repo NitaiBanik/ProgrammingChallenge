@@ -1,8 +1,8 @@
 function detect(report, object){
 
-    var total_alphabets = 0;
-    var total_numbers = 0;
-    var total_dots = 0;
+    let total_alphabets = 0;
+    let total_numbers = 0;
+    let total_dots = 0;
 
     for(var i = 0; i < object.length; i++){
 
