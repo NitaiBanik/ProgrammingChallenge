@@ -84,7 +84,7 @@ function generate_integers(length){
     var object = "";
     
     for(var i = 0 ; i < length; i++)
-         object += integers.charAt(Math.floor(Math.random() * integers.length));
+         object += get_random_character(integers);
 
     return object;
  }
@@ -93,7 +93,7 @@ function generate_integers(length){
     var object = "";
     
     for(var i = 0 ; i < length; i++)
-         object += alphabets.charAt(Math.floor(Math.random() * alphabets.length));
+         object += get_random_character(alphabets);
     
     return object;
  }
@@ -102,7 +102,7 @@ function generate_integers(length){
     var object = "";
     
     for(var i = 0 ; i < length; i++)
-         object += alphanumerics.charAt(Math.floor(Math.random() * alphanumerics.length));
+         object +=  get_random_character(alphanumerics);
     
     return object;
  }
@@ -115,10 +115,14 @@ function generate_integers(length){
         if(i == position_to_put_dot)
             object += '.';
         else
-            object += integers.charAt(Math.floor(Math.random() * integers.length));
+            object += get_random_character(integers);
     }
     return object;
  }
 
  module.exports = {generate};
  
+function get_random_character(chars) {
+    return chars.charAt(Math.floor(Math.random() * chars.length));
+}
+
