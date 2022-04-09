@@ -12,9 +12,11 @@ const integers ='0123456789';
 function generate(fileName, report){
 
     var path = __dirname + '/files/' + fileName;
+    resetPreviouslyGeneratedObjects(path);
+
     console.log(`Generating objects another file ${path}, ${JSON.stringify(report)}`);
     
-    resetPreviouslyGeneratedObjects(path);
+    var total_objects = "";
 
     while(totalBytes >= min_length){
         var length_of_object = generate_length_of_object();
@@ -22,12 +24,15 @@ function generate(fileName, report){
 
         var object = generate_single_object(length);
 
+        total_objects += (object + ", ");
         totalBytes -= length;
-
-        console.log(size);
-        console.log(object);
     }
 
+    total_objects = total_objects.slice(0, -2);
+    fs.writeFile(path, total_objects, (err) => {
+        if (err) throw err;
+        console.log('Objects Generated Successfully!');
+      });
 }
 
 function resetPreviouslyGeneratedObjects(path) {
