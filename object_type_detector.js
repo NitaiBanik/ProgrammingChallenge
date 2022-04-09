@@ -4,12 +4,13 @@ function detect(report, object){
     var total_numbers = 0;
     var total_dots = 0;
 
-    for(var chr in object){
-        if(isNumber(chr))
+    for(var i = 0; i < object.length; i++){
+
+        if(isNumber(object[i]))
             total_numbers++;
-        else if(isAlpha(chr))
+        else if(isAlpha(object[i]))
             total_alphabets++;
-        else if(isDot(chr))
+        else if(isDot(object[i]))
             total_dots++;
         else 
             console.error(`Invalid character: ${chr}`);
@@ -21,7 +22,7 @@ function detect(report, object){
         report.Integers++;
     else if(total_dots == 1 && total_numbers == object.length - 1)
         report.Real_Numbers++;
-    else if((total_dots + total_numbers) == object.length)
+    else if((total_alphabets + total_numbers) == object.length)
         report.Alphanumerics++;
     else
         console.error(`Invalid object: ${object}`);
