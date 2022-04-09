@@ -60,6 +60,8 @@ app.get('/report', (request, response) => {
 });
 
 app.listen(port, () => {
+    resetReport();
+    generator.reset_previously_generated_objects(fileName);
     console.log(`Server is listening on port ${port}`);
 });
 

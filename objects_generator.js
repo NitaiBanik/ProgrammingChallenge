@@ -11,9 +11,9 @@ const integers ='0123456789';
 
 
 function generate(fileName, reportFileName, report){
+    reset_previously_generated_objects(fileName);
 
     var path = __dirname + '/files/' + fileName;
-    resetPreviouslyGeneratedObjects(path);
 
     console.log(`Generating objects another file ${path}, ${JSON.stringify(report)}`);
     
@@ -48,7 +48,8 @@ function generate(fileName, reportFileName, report){
       }); 
 }
 
-function resetPreviouslyGeneratedObjects(path) {
+function reset_previously_generated_objects(fileName) {
+    var path = __dirname + '/files/' + fileName;
     fs.writeFile(path, "", (error) => {
         if (error)
             throw error;
@@ -119,10 +120,11 @@ function generate_integers(length){
     }
     return object;
  }
-
- module.exports = {generate};
  
 function get_random_character(chars) {
     return chars.charAt(Math.floor(Math.random() * chars.length));
 }
+
+module.exports = {generate, reset_previously_generated_objects};
+
 
