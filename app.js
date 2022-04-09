@@ -1,4 +1,4 @@
-var generator= require('./generate_objects');
+var generator= require('./objects_generator');
 var fs = require('fs');
 
 const express = require('express');

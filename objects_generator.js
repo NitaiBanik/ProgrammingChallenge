@@ -14,11 +14,15 @@ function generate(fileName, report){
     console.log(`Generating objects another file ${path}, ${JSON.stringify(report)}`);
     resetPreviouslyGeneratedObjects(path);
 
-    var x = 100;
-    while(x--){
+    var totalBytes = 2*100*100;
+
+    while(totalBytes > min_length){
         var length_of_object = generate_length_of_object();
         var object = generate_single_object(length_of_object);
 
+        totalBytes -= length_of_object;
+
+        console.log(size);
         console.log(object);
     }
 
