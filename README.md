@@ -11,10 +11,6 @@
 
 ```Server is listening on port 6030``` message will be shown in terminal.
 
-**4.** browse the url ```http://localhost:6030/ping``` from any browser.
-
-**pong** will be shown in the browser.
-
 ### How to consume the project
 
 1. `GET` request to url: http://localhost:6030/ping
