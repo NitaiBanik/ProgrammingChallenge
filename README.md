@@ -9,7 +9,9 @@
 
 **3.** Goto project root folder and run the command `npm init` in command terminal.
 
-**4.** run command `node app.js`.
+**4.** Run the command `npm install express` in command terminal.
+
+**5.** run command `node app.js`.
 
 ```Server is listening on port 6030``` message will be shown in terminal.
 
