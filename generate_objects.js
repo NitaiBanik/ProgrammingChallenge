@@ -46,3 +46,62 @@ function generate_length_of_object() {
     var length = random_number * (max_length - min_length + 1) + min_length;
     return Math.floor(length);
 }
+
+function generate_integers(){
+    var object = "";
+    var length =  generate_length_of_object();
+    
+    for(var i = 0 ; i < length; i++){
+         object += integers.charAt(Math.floor(Math.random() * integers.length));
+    }
+    
+    return object;
+ }
+
+ function generate_integers(){
+    var object = "";
+    var length =  generate_length_of_object();
+    
+    for(var i = 0 ; i < length; i++){
+         object += integers.charAt(Math.floor(Math.random() * integers.length));
+    }
+    
+    return object;
+ }
+
+ function generate_alphabetical_string(){
+    var object = "";
+    var length =  generate_length_of_object();
+    
+    for(var i = 0 ; i < length; i++){
+         object += alphabets.charAt(Math.floor(Math.random() * alphabets.length));
+    }
+    
+    return object;
+ }
+
+ function generate_alphanumerics(){
+    var object = "";
+    var length =  generate_length_of_object();
+    
+    for(var i = 0 ; i < length; i++){
+         object += alphanumerics.charAt(Math.floor(Math.random() * alphanumerics.length));
+    }
+    
+    return object;
+ }
+
+ function generate_real_numbers(){
+    var object = "";
+    var length =  generate_length_of_object();
+    
+    for(var i = 0 ; i < length; i++){
+         object += integers.charAt(Math.floor(Math.random() * integers.length));
+    }
+
+    var position_to_put_dot = Math.floor(Math.random() * (length - 2));
+
+    object[position_to_put_dot] = '.';
+    
+    return object;
+ }
